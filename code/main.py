@@ -49,6 +49,7 @@ pb = Plugboard([("A", "F"), ("C", "X"), ("Q", "D"), ("M", "P"), ("T", "Z"), ("G"
 enigma = Enigma(A,I,II,III,pb,kb)
 
 # TODO: Set the rings
+# Good luck getting this to work properly with everything else, I couldn't!
 # enigma.set_rings((1,1,1))
 
 # Set the key
