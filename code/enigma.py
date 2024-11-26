@@ -32,18 +32,39 @@ class Enigma:
 
 
         # Pass the letter through the plugboard, rotors, reflector, and back through the rotors and plugboard
+        # This surely isn't the prettiest way to write this, but it's the most readable I could come up with
         signal = self.keyboard.forward(letter)
+        path = [signal, signal]
         signal = self.plugboard.forward(signal)
+        path.append(signal)
+        path.append(signal)
         signal = self.rotor3.forward(signal)
+        path.append(signal)
+        path.append(signal)
         signal = self.rotor2.forward(signal)
+        path.append(signal)
+        path.append(signal)
         signal = self.rotor1.forward(signal)
+        path.append(signal)
+        path.append(signal)
         signal = self.reflector.reflect(signal)
+        path.append(signal)
+        path.append(signal)
+        path.append(signal)
         signal = self.rotor1.backward(signal)
+        path.append(signal)
+        path.append(signal)
         signal = self.rotor2.backward(signal)
+        path.append(signal)
+        path.append(signal)
         signal = self.rotor3.backward(signal)
+        path.append(signal)
+        path.append(signal)
         signal = self.plugboard.backward(signal)
+        path.append(signal)
+        path.append(signal)
         letter = self.keyboard.backward(signal)
-        return letter
+        return letter, path
     
     def set_key(self, key):
         self.rotor1.rotate_to_letter(key[0])
