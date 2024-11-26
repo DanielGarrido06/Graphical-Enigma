@@ -12,18 +12,18 @@ class Enigma:
 
     
         # Rotate the rotors
-        if self.rotor2.left[0] in self.rotor2.notch and self.rotor3.left[0] in self.rotor3.notch:
+        if self.rotor2.left[0] == self.rotor2.notch and self.rotor3.left[0] == self.rotor3.notch:
             self.rotor1.rotate()
             self.rotor2.rotate()
             self.rotor3.rotate()
 
         #Double step anomaly. IDE might complain about the elif statement, but it is historically correct.
-        elif self.rotor2.left[0] in self.rotor2.notch:
+        elif self.rotor2.left[0] == self.rotor2.notch:
             self.rotor1.rotate()
             self.rotor2.rotate()
             self.rotor3.rotate()
 
-        elif self.rotor3.left[0] in self.rotor3.notch:
+        elif self.rotor3.left[0] == self.rotor3.notch:
             self.rotor2.rotate()
             self.rotor3.rotate()
 

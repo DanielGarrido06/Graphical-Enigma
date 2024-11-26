@@ -25,8 +25,8 @@ pb = Plugboard([("A", "B"), ("C", "D"), ("E", "F")])
 # Create the enigma machine
 enigma = Enigma(B,IV,II,I,pb,kb)
 
-# Set the rings
-enigma.set_rings((1,1,2))
+# TODO: Set the rings
+# enigma.set_rings((1,1,1))
 
 # Set the key
 enigma.set_key("CAT")
@@ -37,3 +37,4 @@ for letter in message:
     cipher_text += enigma.encipher(letter)
 
 print(cipher_text)
+print(enigma.rotor3.notch)

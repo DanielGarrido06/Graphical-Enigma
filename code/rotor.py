@@ -34,7 +34,8 @@ class Rotor:
 
     def set_ring(self, position):
         #Rotate the rotor back
-        self.rotate_back()
+        for _ in range(position - 1):
+            self.rotate_back()
         
         #Adjust the turnover notch in relation to the wiring of the rotor
         position_notch = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".find(self.notch)
