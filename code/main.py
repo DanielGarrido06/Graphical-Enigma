@@ -1,10 +1,4 @@
-'''
-Reflector: A
-Rotors: I-II-III
-Plugboard: A-R, G-K, O-X
-Message: A => X
-'''
-
+from enigma import Enigma
 from enigmakeyboard import Keyboard
 from enigmaplugboard import Plugboard
 from reflector import Reflector
@@ -19,23 +13,27 @@ III = Rotor("BDFHJLCPRTXVZNYEIWGAKMUSQO", "V")
 IV = Rotor("ESOVPZJAYQUIRHXLNFTGKDCMWB", "J")
 V = Rotor("VZBRGITYUPSDNHLXAWMJQOFECK", "Z")
 
-# Historical reflector wirings and notches, taken from https://en.wikipedia.org/wiki/Enigma_rotor_details
+# Historical reflector wirings, taken from https://en.wikipedia.org/wiki/Enigma_rotor_details
 A = Reflector("EJMZALYXVBWFCRQUONTSPIKHGD")
 B = Reflector("YRUHQSLDPXNGOKMIEBFZCWVJAT")
 C = Reflector("FVPJIAOYEDRZXWGCTKUQSBNMHL")
 
-letter = "A"
+# Keyboard and plugboard
 kb = Keyboard()
-pb = Plugboard([("A", "R"), ("G", "K"), ("O", "X")])
-signal = kb.forward(letter)
-signal = pb.forward(signal)
-signal = III.forward(signal)
-signal = II.forward(signal)
-signal = I.forward(signal)
-signal = A.reflect(signal)
-signal = I.backward(signal)
-signal = II.backward(signal)
-signal = III.backward(signal)
-signal = pb.backward(signal)
-letter = kb.backward(signal)
-print(f"Letter: {letter}")
+pb = Plugboard([("A", "B"), ("C", "D"), ("E", "F")])
+
+# Create the enigma machine
+enigma = Enigma(B,IV,II,I,pb,kb)
+
+# Set the rings
+enigma.set_rings((1,1,2))
+
+# Set the key
+enigma.set_key("CAT")
+
+message = "TESTINGTESTINGTESTINGTESTING"
+cipher_text = ""
+for letter in message:
+    cipher_text += enigma.encipher(letter)
+
+print(cipher_text)
