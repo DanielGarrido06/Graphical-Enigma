@@ -51,3 +51,19 @@ def draw(enigma, path, screen, width, height, margins, gap, font):
         title = font.render(titles[i], True, (255, 255, 255))
         text_box = title.get_rect(center = (margins["left"] + i*(w+gap) + w/2, margins["top"]-20))
         screen.blit(title, text_box)
+
+    # Write the settings
+    key = enigma.rotor1.left[0] + enigma.rotor2.left[0] + enigma.rotor3.left[0]
+    rotor_order = [enigma.rotor1.name, enigma.rotor2.name, enigma.rotor3.name]
+    plugboard = enigma.plugboard.list
+    if not hasattr(draw, "original_key"):
+        draw.original_key = key
+    original_key = draw.original_key
+    settings = ["Chave Original:"+original_key, "Chave Atual:"+key, "Rotores:"+str(rotor_order), "Refletor:"+enigma.reflector.name]
+    for i in range(4):
+        setting = font.render(settings[i], True, (255, 255, 255))
+        text_box = setting.get_rect(center = (200+(i*width/4), 20))
+        screen.blit(setting, text_box)
+    settings_cont = pygame.font.SysFont("Courier", 20, bold=True).render(str(plugboard), True, (255, 255, 255))
+    text_box = settings_cont.get_rect(center = (width/2, 40))
+    screen.blit(settings_cont, text_box)

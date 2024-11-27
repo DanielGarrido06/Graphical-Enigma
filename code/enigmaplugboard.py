@@ -5,8 +5,10 @@ class Plugboard:
     def __init__(self, pairs):
         self.left = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         self.right = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        self.list = []
         for pair in pairs:
             a, b = pair
+            self.list.append((a, b))
             # Replace a with #, then replace b with a, then replace # with b
             # This effectively swaps the two letters
             self.left = self.left.replace(a, '#').replace(b, a).replace('#', b)

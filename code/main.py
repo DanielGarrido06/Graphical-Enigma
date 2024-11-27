@@ -30,30 +30,30 @@ PATH = []
 
 
 # Historical rotor wirings and notches, taken from https://en.wikipedia.org/wiki/Enigma_rotor_details
-I = Rotor("EKMFLGDQVZNTOWYHXUSPAIBRCJ", "Q")
-II = Rotor("AJDKSIRUXBLHWTMCQGZNPYFVOE", "E")
-III = Rotor("BDFHJLCPRTXVZNYEIWGAKMUSQO", "V")
-IV = Rotor("ESOVPZJAYQUIRHXLNFTGKDCMWB", "J")
-V = Rotor("VZBRGITYUPSDNHLXAWMJQOFECK", "Z")
+I = Rotor("EKMFLGDQVZNTOWYHXUSPAIBRCJ", "Q", "I")
+II = Rotor("AJDKSIRUXBLHWTMCQGZNPYFVOE", "E", "II")
+III = Rotor("BDFHJLCPRTXVZNYEIWGAKMUSQO", "V", "III")
+IV = Rotor("ESOVPZJAYQUIRHXLNFTGKDCMWB", "J", "IV")
+V = Rotor("VZBRGITYUPSDNHLXAWMJQOFECK", "Z", "V")
 
 # Historical reflector wirings, taken from https://en.wikipedia.org/wiki/Enigma_rotor_details
-A = Reflector("EJMZALYXVBWFCRQUONTSPIKHGD")
-B = Reflector("YRUHQSLDPXNGOKMIEBFZCWVJAT")
-C = Reflector("FVPJIAOYEDRZXWGCTKUQSBNMHL")
+A = Reflector("EJMZALYXVBWFCRQUONTSPIKHGD", "A")
+B = Reflector("YRUHQSLDPXNGOKMIEBFZCWVJAT", "B")
+C = Reflector("FVPJIAOYEDRZXWGCTKUQSBNMHL", "C")
 
 # Keyboard and plugboard
 kb = Keyboard()
-pb = Plugboard([("A", "F"), ("C", "X"), ("Q", "D"), ("M", "P"), ("T", "Z"), ("G", "V")])
+pb = Plugboard([("A", "V"), ("C", "X"), ("Q", "D"), ("M", "P"), ("T", "Z"), ("G", "S"), ("K", "N"), ("Y", "L"), ("R", "U"), ("H", "W")])
 
 # Create the enigma machine
-enigma = Enigma(A,I,II,III,pb,kb)
+enigma = Enigma(B,IV,II,V,pb,kb)
 
 # TODO: Set the rings
 # Good luck getting this to work properly with everything else, I couldn't!
 # enigma.set_rings((1,1,1))
 
 # Set the key
-enigma.set_key("AAA")
+enigma.set_key("XSP")
 
 animating = True
 while animating:   

@@ -2,10 +2,11 @@ import pygame
 
 class Rotor:
 
-    def __init__(self, wiring, notch):
+    def __init__(self, wiring, notch, name):
         self.left = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         self.right = wiring
         self.notch = notch
+        self.name = name
 
     def forward(self, signal):
         letter = self.right[signal]
