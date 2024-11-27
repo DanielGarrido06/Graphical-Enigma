@@ -1,4 +1,5 @@
 import pygame
+import math
 
 def draw(enigma, path, screen, width, height, margins, gap, font):
 
@@ -25,15 +26,22 @@ def draw(enigma, path, screen, width, height, margins, gap, font):
     # Draw Path
     if len(path) > 0:
         for i in range(1,21):
-            if i < 10:
-                color = (255, 0, 0)
-            elif i < 12:
-                color = (0, 255, 0)
-            else:
-                color = (0, 0, 255)
+            r = 0
+            g = int((i / 20) * 255)
+            b = 255 - g
+            color = (r, g, b)
             start = (x[i-1], y[i-1])
             end = (x[i], y[i])
             pygame.draw.line(screen, color, start, end, width=5)
+            # Draw arrow endcaps
+            arrow_size = 20
+            angle = math.atan2(end[1] - start[1], end[0] - start[0])
+            arrow_points = [
+                (end[0] - arrow_size * math.cos(angle - math.pi / 6), end[1] - arrow_size * math.sin(angle - math.pi / 6)),
+                (end[0] - arrow_size * math.cos(angle + math.pi / 6), end[1] - arrow_size * math.sin(angle + math.pi / 6)),
+                end
+            ]
+            pygame.draw.polygon(screen, color, arrow_points)
 
     # Base coordinates
     x = margins["left"]
