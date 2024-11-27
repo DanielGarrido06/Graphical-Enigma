@@ -12,3 +12,4 @@ Many thanks for the great learning tool.
 - Customizable rotor settings and plugboard configurations
 - Educational resources and historical context
 
+![image](https://github.com/user-attachments/assets/d9bbbd7c-73cc-4413-bfbf-7ab0af23cbe2)
