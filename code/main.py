@@ -46,7 +46,7 @@ kb = Keyboard()
 pb = Plugboard([("A", "F"), ("C", "X"), ("Q", "D"), ("M", "P"), ("T", "Z"), ("G", "V")])
 
 # Create the enigma machine
-enigma = Enigma(A,I,II,III,pb,kb)
+enigma = Enigma(C,I,II,III,pb,kb)
 
 # TODO: Set the rings
 # Good luck getting this to work properly with everything else, I couldn't!
@@ -89,4 +89,3 @@ while animating:
                 INPUT += key
                 cipher, PATH = enigma.encipher(key)
                 OUTPUT += cipher
-                print(PATH)
