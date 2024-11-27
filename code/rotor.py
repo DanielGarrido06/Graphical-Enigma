@@ -28,23 +28,30 @@ class Rotor:
         self.left = self.left[1:] + self.left[0]
         self.right = self.right[1:] + self.right[0]
 
-    def rotate_back(self):
-        self.left = self.left[-1] + self.left[:-1]
-        self.right = self.right[-1] + self.right[:-1]
+
+    def shift_string(self, string):
+        shifted = ""
+        for char in string:
+            if char.isalpha():
+                shifted += chr((ord(char) - 65 + 1) % 26 + 65)
+            else:
+                shifted += char
+        return shifted
+    
+    def rotate_left_back(self):
+        self.left = self.shift_string(self.left)
+        
 
     def rotate_to_letter(self, letter):
         while self.left[0] != letter:
             self.rotate()
 
     def set_ring(self, position):
+        # Honestly, it's a miracle this works. I bashed my head against the wall for hours trying to figure this out, and then it just worked.
         self.ring = position
-        #Rotate the rotor back
         for _ in range(position - 1):
-            self.rotate_back()
-        
-        #Adjust the turnover notch in relation to the wiring of the rotor
-        position_notch = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".find(self.notch)
-        self.notch = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[(position_notch - position + 1) % 26]
+            self.right = self.shift_string(self.right)
+            self.rotate_left_back()
 
     def draw(self, screen, x, y, width, height, font):
 
