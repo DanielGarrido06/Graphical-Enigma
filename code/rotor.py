@@ -7,6 +7,7 @@ class Rotor:
         self.right = wiring
         self.notch = notch
         self.name = name
+        self.ring = 1
 
     def forward(self, signal):
         letter = self.right[signal]
@@ -36,13 +37,14 @@ class Rotor:
             self.rotate()
 
     def set_ring(self, position):
+        self.ring = position
         #Rotate the rotor back
         for _ in range(position - 1):
             self.rotate_back()
         
         #Adjust the turnover notch in relation to the wiring of the rotor
         position_notch = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".find(self.notch)
-        self.notch = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[(position_notch - position) % 26]
+        self.notch = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[(position_notch - position + 1) % 26]
 
     def draw(self, screen, x, y, width, height, font):
 

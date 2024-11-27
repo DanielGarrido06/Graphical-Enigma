@@ -43,17 +43,16 @@ C = Reflector("FVPJIAOYEDRZXWGCTKUQSBNMHL", "C")
 
 # Keyboard and plugboard
 kb = Keyboard()
-pb = Plugboard([("A", "V"), ("C", "X"), ("Q", "D"), ("M", "P"), ("T", "Z"), ("G", "S"), ("K", "N"), ("Y", "L"), ("R", "U"), ("H", "W")])
+pb = Plugboard([("A", "M"), ("F", "N"), ("G", "L"), ("I", "V"), ("O", "E"), ("P", "J"), ("Q", "T"), ("R", "U"), ("X", "Z")])
 
 # Create the enigma machine
-enigma = Enigma(B,IV,II,V,pb,kb)
+enigma = Enigma(B,IV,II,I,pb,kb)
 
-# TODO: Set the rings
-# Good luck getting this to work properly with everything else, I couldn't!
-# enigma.set_rings((1,1,1))
+# Set the rings
+enigma.set_rings((1,1,1))
 
 # Set the key
-enigma.set_key("XSP")
+enigma.set_key("DOG")
 
 animating = True
 while animating:   

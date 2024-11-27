@@ -62,12 +62,13 @@ def draw(enigma, path, screen, width, height, margins, gap, font):
 
     # Write the settings
     key = enigma.rotor1.left[0] + enigma.rotor2.left[0] + enigma.rotor3.left[0]
-    rotor_order = [enigma.rotor1.name, enigma.rotor2.name, enigma.rotor3.name]
+    rotor_order = enigma.rotor1.name + ", " + enigma.rotor2.name + ", " + enigma.rotor3.name
+    rings = enigma.rotor1.ring, enigma.rotor2.ring, enigma.rotor3.ring
     plugboard = enigma.plugboard.list
     if not hasattr(draw, "original_key"):
         draw.original_key = key
     original_key = draw.original_key
-    settings = ["Chave Original:"+original_key, "Chave Atual:"+key, "Rotores:"+str(rotor_order), "Refletor:"+enigma.reflector.name]
+    settings = ["Chave Original:"+original_key, "Anéis:"+str(rings), "Rotores: "+str(rotor_order), "Refletor:"+enigma.reflector.name]
     for i in range(4):
         setting = font.render(settings[i], True, (255, 255, 255))
         text_box = setting.get_rect(center = (200+(i*width/4), 20))
