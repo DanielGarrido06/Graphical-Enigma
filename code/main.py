@@ -89,4 +89,3 @@ while animating:
                 INPUT += key
                 cipher, PATH = enigma.encipher(key)
                 OUTPUT += cipher
-                print(PATH)
