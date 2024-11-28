@@ -47,8 +47,8 @@ ring1, ring2, ring3 = map(int, ring_settings.split())
 
 # Get user input for initial key settings
 key_choices = [chr(i) for i in range(ord('A'), ord('Z') + 1)]
-key_settings = get_user_input("Escolha a chave inicial dos Rotores (ex: A B C)", [" ".join([k1, k2, k3]) for k1 in key_choices for k2 in key_choices for k3 in key_choices])
-key1, key2, key3 = key_settings.split()
+key_settings = get_user_input("Escolha a chave inicial dos Rotores (ex: ABC)", ["".join([k1, k2, k3]) for k1 in key_choices for k2 in key_choices for k3 in key_choices])
+key1, key2, key3 = key_settings[0], key_settings[1], key_settings[2]
 
 # Get user input for plugboard settings. The random funcionality is also available, but had to be implemented in a different way
 plugboard_settings = input("Escolha as configurações do Plugboard (ex: AM FL TZ), ou deixe em branco para escolher aleatoriamente: ").strip().replace(",", " ").replace("-", " ").upper().split()
@@ -112,17 +112,21 @@ while animating:
             animating = False
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
+                # Quit the program
                 animating = False
             elif event.key == pygame.K_SPACE:
+                # Add a space to the input and output, without moving the rotors
                 INPUT += " "
                 OUTPUT += " "
             elif event.key == pygame.K_DELETE:
+                # Reset the Enigma Machine
                 INPUT = ""
                 OUTPUT = ""
                 PATH = []
                 enigma = Enigma(eval(reflector), eval(rotor1), eval(rotor2), eval(rotor3), pb, kb)
                 enigma.set_key(f"{key1}{key2}{key3}")
             elif event.unicode.isalpha():
+                # Get the key pressed and encipher it
                 key = event.unicode.upper()
                 INPUT += key
                 cipher, PATH = enigma.encipher(key)
