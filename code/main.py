@@ -19,9 +19,8 @@ A = Reflector("EJMZALYXVBWFCRQUONTSPIKHGD", "A")
 B = Reflector("YRUHQSLDPXNGOKMIEBFZCWVJAT", "B")
 C = Reflector("FVPJIAOYEDRZXWGCTKUQSBNMHL", "C")
 
-# Keyboard and plugboard
+# Keyboard
 kb = Keyboard()
-pb = Plugboard([("A", "M"), ("F", "N"), ("G", "L"), ("I", "V"), ("O", "E"), ("P", "T"), ("R", "Z"), ("S", "X"), ("U", "Y"), ("W", "Q")])
 
 def get_user_input(prompt, choices):
     while True:
@@ -51,7 +50,15 @@ key_choices = [chr(i) for i in range(ord('A'), ord('Z') + 1)]
 key_settings = get_user_input("Escolha a chave inicial dos Rotores (ex: A B C)", [" ".join([k1, k2, k3]) for k1 in key_choices for k2 in key_choices for k3 in key_choices])
 key1, key2, key3 = key_settings.split()
 
-# TODO: Add a way to set the plugboard settings
+# Get user input for plugboard settings. The random funcionality is also available, but had to be implemented in a different way
+plugboard_settings = input("Escolha as configurações do Plugboard (ex: AM FL TZ): ").strip().replace(",", " ").replace("-", " ").upper().split()
+plugboard_pairs = [(pair[0], pair[1]) for pair in plugboard_settings]
+# Option to use random selection of 10 pairs of letters for plugboard settings
+if plugboard_pairs == []:
+    letters = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    random.shuffle(letters)
+    plugboard_pairs = [(letters[i], letters[i + 1]) for i in range(0, 20, 2)]    
+pb = Plugboard(plugboard_pairs)
 
 # Set the rotors, reflector, rings, and key based on user input
 enigma = Enigma(eval(reflector), eval(rotor1), eval(rotor2), eval(rotor3), pb, kb)
@@ -109,6 +116,13 @@ while animating:
             elif event.key == pygame.K_SPACE:
                 INPUT += " "
                 OUTPUT += " "
+            elif event.key == pygame.K_DELETE:
+                INPUT = ""
+                OUTPUT = ""
+                PATH = []
+                enigma = Enigma(eval(reflector), eval(rotor1), eval(rotor2), eval(rotor3), pb, kb)
+                enigma.set_rings((ring1, ring2, ring3))
+                enigma.set_key(f"{key1}{key2}{key3}")
             elif event.unicode.isalpha():
                 key = event.unicode.upper()
                 INPUT += key
