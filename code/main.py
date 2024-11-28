@@ -34,7 +34,7 @@ def get_user_input(prompt, choices):
 
 # Get user input for rotor settings
 rotor_choices = ["I", "II", "III", "IV", "V"]
-rotors = get_user_input("Escolha a ordem dos Rotores (ex: II V IV)", [" ".join([r1, r2, r3]) for r1 in rotor_choices for r2 in rotor_choices for r3 in rotor_choices])
+rotors = get_user_input("Escolha a ordem dos Rotores (ex: II V IV)", [" ".join([r1, r2, r3]) for r1 in rotor_choices for r2 in rotor_choices if r2 != r1 for r3 in rotor_choices if r3 != r1 and r3 != r2])
 rotor1, rotor2, rotor3 = rotors.split()
 
 # Get user input for reflector settings
@@ -51,7 +51,7 @@ key_settings = get_user_input("Escolha a chave inicial dos Rotores (ex: A B C)",
 key1, key2, key3 = key_settings.split()
 
 # Get user input for plugboard settings. The random funcionality is also available, but had to be implemented in a different way
-plugboard_settings = input("Escolha as configurações do Plugboard (ex: AM FL TZ): ").strip().replace(",", " ").replace("-", " ").upper().split()
+plugboard_settings = input("Escolha as configurações do Plugboard (ex: AM FL TZ), ou deixe em branco para escolher aleatoriamente: ").strip().replace(",", " ").replace("-", " ").upper().split()
 plugboard_pairs = [(pair[0], pair[1]) for pair in plugboard_settings]
 # Option to use random selection of 10 pairs of letters for plugboard settings
 if plugboard_pairs == []:
