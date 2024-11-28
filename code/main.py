@@ -121,7 +121,6 @@ while animating:
                 OUTPUT = ""
                 PATH = []
                 enigma = Enigma(eval(reflector), eval(rotor1), eval(rotor2), eval(rotor3), pb, kb)
-                enigma.set_rings((ring1, ring2, ring3))
                 enigma.set_key(f"{key1}{key2}{key3}")
             elif event.unicode.isalpha():
                 key = event.unicode.upper()
