@@ -1,11 +1,63 @@
 import pygame
-
+import random
 from enigma import Enigma
 from enigmakeyboard import Keyboard
 from enigmaplugboard import Plugboard
 from reflector import Reflector
 from rotor import Rotor
 from draw import draw
+
+# Historical rotor wirings and notches, taken from https://en.wikipedia.org/wiki/Enigma_rotor_details
+I = Rotor("EKMFLGDQVZNTOWYHXUSPAIBRCJ", "Q", "I")
+II = Rotor("AJDKSIRUXBLHWTMCQGZNPYFVOE", "E", "II")
+III = Rotor("BDFHJLCPRTXVZNYEIWGAKMUSQO", "V", "III")
+IV = Rotor("ESOVPZJAYQUIRHXLNFTGKDCMWB", "J", "IV")
+V = Rotor("VZBRGITYUPSDNHLXAWMJQOFECK", "Z", "V")
+
+# Historical reflector wirings, taken from https://en.wikipedia.org/wiki/Enigma_rotor_details
+A = Reflector("EJMZALYXVBWFCRQUONTSPIKHGD", "A")
+B = Reflector("YRUHQSLDPXNGOKMIEBFZCWVJAT", "B")
+C = Reflector("FVPJIAOYEDRZXWGCTKUQSBNMHL", "C")
+
+# Keyboard and plugboard
+kb = Keyboard()
+pb = Plugboard([("A", "M"), ("F", "N"), ("G", "L"), ("I", "V"), ("O", "E"), ("P", "T"), ("R", "Z"), ("S", "X"), ("U", "Y"), ("W", "Q")])
+
+def get_user_input(prompt, choices):
+    while True:
+        user_input = input(f"{prompt}, ou deixe em branco para escolher aleatoriamente: ").strip().upper().replace(",", " ").replace("-", " ")
+        if user_input == "":
+            return random.choice(choices)
+        elif user_input in choices:
+            return user_input
+        else:
+            print("Escolha inválida. Tente novamente.")
+
+# Get user input for rotor settings
+rotor_choices = ["I", "II", "III", "IV", "V"]
+rotors = get_user_input("Escolha a ordem dos Rotores (ex: II V IV)", [" ".join([r1, r2, r3]) for r1 in rotor_choices for r2 in rotor_choices for r3 in rotor_choices])
+rotor1, rotor2, rotor3 = rotors.split()
+
+# Get user input for reflector settings
+reflector_choices = ["A", "B", "C"]
+reflector = get_user_input("Escolha o Refletor (A, B, ou C)", reflector_choices)
+
+# Get user input for ring settings
+ring_settings = get_user_input("Escolha as configurações dos anéis dos Rotores (ex: 1 21 5)", [" ".join([str(r1), str(r2), str(r3)]) for r1 in range(1, 27) for r2 in range(1, 27) for r3 in range(1, 27)])
+ring1, ring2, ring3 = map(int, ring_settings.split())
+
+# Get user input for initial key settings
+key_choices = [chr(i) for i in range(ord('A'), ord('Z') + 1)]
+key_settings = get_user_input("Escolha a chave inicial dos Rotores (ex: A B C)", [" ".join([k1, k2, k3]) for k1 in key_choices for k2 in key_choices for k3 in key_choices])
+key1, key2, key3 = key_settings.split()
+
+# TODO: Add a way to set the plugboard settings
+
+# Set the rotors, reflector, rings, and key based on user input
+enigma = Enigma(eval(reflector), eval(rotor1), eval(rotor2), eval(rotor3), pb, kb)
+enigma.set_rings((ring1, ring2, ring3))
+enigma.set_key(f"{key1}{key2}{key3}")
+
 
 # Initialize pygame
 pygame.init()
@@ -27,32 +79,6 @@ GAP = 100
 INPUT = ""
 OUTPUT = ""
 PATH = []
-
-
-# Historical rotor wirings and notches, taken from https://en.wikipedia.org/wiki/Enigma_rotor_details
-I = Rotor("EKMFLGDQVZNTOWYHXUSPAIBRCJ", "Q", "I")
-II = Rotor("AJDKSIRUXBLHWTMCQGZNPYFVOE", "E", "II")
-III = Rotor("BDFHJLCPRTXVZNYEIWGAKMUSQO", "V", "III")
-IV = Rotor("ESOVPZJAYQUIRHXLNFTGKDCMWB", "J", "IV")
-V = Rotor("VZBRGITYUPSDNHLXAWMJQOFECK", "Z", "V")
-
-# Historical reflector wirings, taken from https://en.wikipedia.org/wiki/Enigma_rotor_details
-A = Reflector("EJMZALYXVBWFCRQUONTSPIKHGD", "A")
-B = Reflector("YRUHQSLDPXNGOKMIEBFZCWVJAT", "B")
-C = Reflector("FVPJIAOYEDRZXWGCTKUQSBNMHL", "C")
-
-# Keyboard and plugboard
-kb = Keyboard()
-pb = Plugboard([("A", "M"), ("F", "N"), ("G", "L"), ("I", "V"), ("O", "E"), ("P", "T"), ("R", "Z"), ("S", "X")])
-
-# Create the enigma machine
-enigma = Enigma(B,IV,V,I,pb,kb)
-
-# Set the rings
-enigma.set_rings((14,21,5))
-
-# Set the key
-enigma.set_key("ZRM")
 
 animating = True
 while animating:   
