@@ -73,6 +73,6 @@ def draw(enigma, path, screen, width, height, margins, gap, font):
         setting = font.render(settings[i], True, (255, 255, 255))
         text_box = setting.get_rect(center = (200+(i*width/4), 20))
         screen.blit(setting, text_box)
-    settings_cont = pygame.font.SysFont("Courier", 20, bold=True).render(str(plugboard), True, (255, 255, 255))
+    settings_cont = pygame.font.SysFont("Courier", 25, bold=True).render(str(plugboard).replace("'","").replace(",",""), True, (255, 255, 255))
     text_box = settings_cont.get_rect(center = (width/2, 40))
     screen.blit(settings_cont, text_box)
