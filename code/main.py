@@ -128,6 +128,7 @@ while animating:
             elif event.unicode.isalpha():
                 # Get the key pressed and encipher it
                 key = event.unicode.upper()
+                key = key.translate(str.maketrans("ÁÀÂÃÄÅÇÉÈÊËÍÌÎÏÑÓÒÔÕÖÚÙÛÜÝ", "AAAAAACEEEEIIIINOOOOOUUUUY"))
                 INPUT += key
                 cipher, PATH = enigma.encipher(key)
                 OUTPUT += cipher
