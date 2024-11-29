@@ -15,7 +15,7 @@ Many thanks for the great learning tool.
 ## Dependencies
 
 The only external dependency of this project is pygame, and it can be installed with
-python3 -m pip install -U pygame --user
+`python3 -m pip install -U pygame --user`
 
 
 ![image](https://github.com/user-attachments/assets/d9bbbd7c-73cc-4413-bfbf-7ab0af23cbe2)
