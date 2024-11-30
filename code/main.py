@@ -125,6 +125,16 @@ while animating:
                 PATH = []
                 enigma = Enigma(eval(reflector), eval(rotor1), eval(rotor2), eval(rotor3), pb, kb)
                 enigma.set_key(f"{key1}{key2}{key3}")
+            elif event.key == pygame.K_BACKSPACE:
+                # Remove the last character from the input and output, rotating the rotors back to their previous position.
+                # enigma.backspace has to be called twice because retracing the path of the new last letter after the backspace
+                # will move the rotors forward once. So we have to move them back twice to get them to their previous position.
+                INPUT = INPUT[:-1]
+                enigma.backspace()
+                enigma.backspace()
+                cipher, PATH = enigma.encipher(INPUT[-1])
+                OUTPUT = OUTPUT[:-1]
+
             elif event.unicode.isalpha():
                 # Get the key pressed and encipher it
                 key = event.unicode.upper()

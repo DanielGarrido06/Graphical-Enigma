@@ -65,7 +65,25 @@ class Enigma:
         path.append(signal)
         letter = self.keyboard.backward(signal)
         return letter, path
-    
+
+    def backspace(self):
+        if self.rotor2.left[-1] == self.rotor2.notch and self.rotor3.left[-1] == self.rotor3.notch:
+            self.rotor1.rotate_back()
+            self.rotor2.rotate_back()
+            self.rotor3.rotate_back()
+        
+        elif self.rotor2.left[-1] == self.rotor2.notch:
+            self.rotor1.rotate_back()
+            self.rotor2.rotate_back()
+            self.rotor3.rotate_back()
+        
+        elif self.rotor3.left[-1] == self.rotor3.notch:
+            self.rotor2.rotate_back()
+            self.rotor3.rotate_back()
+
+        else:
+            self.rotor3.rotate_back()    
+
     def set_key(self, key):
         self.rotor1.rotate_to_letter(key[0])
         self.rotor2.rotate_to_letter(key[1])

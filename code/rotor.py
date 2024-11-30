@@ -28,6 +28,10 @@ class Rotor:
         self.left = self.left[1:] + self.left[0]
         self.right = self.right[1:] + self.right[0]
 
+    def rotate_back(self):
+        self.left = self.left[-1] + self.left[:-1]
+        self.right = self.right[-1] + self.right[:-1]
+
 
     def shift_string(self, string):
         shifted = ""
