@@ -132,9 +132,11 @@ while animating:
                 if len(INPUT) > 0:
                     INPUT = INPUT[:-1]
                     enigma.backspace()
-                    if len(INPUT) > 1:
+                    if len(INPUT) > 0:
                         enigma.backspace()
                         cipher, PATH = enigma.encipher(INPUT[-1])
+                    else:
+                        PATH = []
                     OUTPUT = OUTPUT[:-1]
 
             elif event.unicode.isalpha():
